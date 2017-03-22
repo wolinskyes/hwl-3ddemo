@@ -1,0 +1,34 @@
+// fn is the "resolution" of the shape. lower means fewer facets
+//$fn=6;
+$fn=50;
+
+/////////////////////////////////////////////////// Introduction 
+
+// Let's make some shapes!
+
+// "difference" means we're going to subtract shapes
+difference(){
+    //First, we add lumps and bumps
+    // a "group" is a collection of shapes
+    // that all behave like a single compound object
+    group(){
+
+        // check out how code can speed things up:
+        // this is a loop.
+        // for "i" times, we loop through and do a little math...
+        for(i=[0:8]){
+             rotate([0,0,i*45]) 
+             translate([17,0,0]) 
+             cylinder(h = 5, r1 = 5, r2 = 5);
+            //cube([5,11.5,3.5]);
+        }
+        
+        // It takes two cylinders to make a ring
+        // you need an outer edge and an inner one. this is the outer edge 
+        translate([0,0,2.5])
+        cylinder(h = 5, r1 = 20, r2 = 20, center = true);
+    }
+
+// subtract a smaller cylinder to make a hole (to insert the motor's wheel)
+cylinder(h = 20, r1 = 18, r2 = 18, center = true);
+}
