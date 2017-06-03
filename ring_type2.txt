@@ -1,0 +1,49 @@
+/////////////////////////// M A D E   T O   O R D E R ///////////////////////////
+///////////////////////// at the Chicago Public Library /////////////////////////
+units = "millimeters";
+$fn = 30;
+
+innerRadius = 8;
+outerRadius = 10;
+
+module ringBase(){
+    group(){
+
+        // check out how code can speed things up:
+        // this is a loop.
+        // for "i" times, we loop through and do a little math...
+        for(i=[1:8]){
+             rotate([10,20,i*45]) 
+             translate([5,2,-4]) 
+             cylinder(h =15, r1=10,r2=0.1);
+            //cube([5,11.5,3.5]);
+        }
+        
+        // It takes two cylinders to make a ring
+        // you need an outer edge and an inner one. this is the outer edge 
+        translate([0,0,2.5])
+        cylinder(h = 5, d=12, center = true);
+    }
+    
+}
+
+module punchOut(){
+    // we punch out a hole
+    // and then make the bottom of the shape flat, for faster printing
+    
+    union(){
+        cylinder(h=200,d=innerRadius,center=true);
+        translate([0,0,-50])
+        cylinder(h=50.1,d=300,center=false);
+    }
+}
+
+// putting it all together
+
+module makeRing(){
+    difference(){
+        ringBase();
+        punchOut();
+    }
+}
+makeRing();
