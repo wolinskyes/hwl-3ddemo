@@ -1,19 +1,20 @@
 /////////////////////////// M A D E   T O   O R D E R ///////////////////////////
+///////////////////////// at the Chicago Public Library /////////////////////////
 units = "millimeters";
 $fn = 30;
 
-innerRadius = 8;
-outerRadius = 10;
+innerDiameter = 16;
+outerDiameter = 1.25*innerDiameter;
 
 module ringBase(){
-    cylinder(h=4,d=outerRadius);
+    cylinder(h=8,d=outerDiameter);
     
     for(n = [1 : 12]){
-        randomNumber = rands(3,10,1)[0];
+        randomNumber = rands(2,20,1)[0];
         normalNumber = 10;
         rotate([90,10,n*30])
         translate([-2.5,0,2])
-        cube([3, randomNumber, 5],false);
+        cube([6, randomNumber, 10],false);
     }
     
 }
@@ -23,8 +24,9 @@ module punchOut(){
     // and then make the bottom of the shape flat, for faster printing
     
     union(){
-        cylinder(h=200,d=innerRadius,center=true);
-        cylinder(h=1,d=300,center=true);
+        cylinder(h=200,d=innerDiameter,center=true);
+        translate([0,0,-2])
+        cylinder(h=3.1,d=300,center=false);
     }
 }
 
