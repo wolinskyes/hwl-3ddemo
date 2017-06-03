@@ -1,0 +1,34 @@
+/////////////////////////// M A D E   T O   O R D E R ///////////////////////////
+
+units = "millimeters";
+$fn = 30;
+
+innerRadius = 8;
+outerRadius = 10;
+
+module ringBase(){
+    cylinder(h=4,d=outerRadius);
+    
+    for(n = [1 : 12]){
+        randomNumber = rands(3,10,1)[0];
+        normalNumber = 10;
+        rotate([90,10,n*30])
+        translate([-2.5,0,2])
+        cube([2, randomNumber, 5],false);
+    }
+    
+}
+
+module punchOut(){
+    cylinder(h=200,d=innerRadius,center=true);
+}
+
+// putting it all together
+
+module makeRing(){
+    difference(){
+        ringBase();
+        punchOut();
+    }
+}
+makeRing();
